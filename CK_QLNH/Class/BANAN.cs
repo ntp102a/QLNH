@@ -97,7 +97,25 @@ namespace CK_QLNH
                 return false;
             }
         }
-        public bool updateBanAnTrong(string Id, int tinhtrang, string thoigian)
+        public bool updateBanAnTrong(string Id, int tinhtrang)
+        {
+            SqlCommand command = new SqlCommand("UPDATE QLBanAn SET tinhtrang=@tt  WHERE id=@Id", db.GetConnection);
+            command.Parameters.Add("@id", SqlDbType.VarChar).Value = Id;
+            command.Parameters.Add("@tt", SqlDbType.Int).Value = tinhtrang;
+
+            db.openConnection();
+            if ((command.ExecuteNonQuery() == 1))
+            {
+                db.closeConnection();
+                return true;
+            }
+            else
+            {
+                db.closeConnection();
+                return false;
+            }
+        }
+        public bool updateBanAnDaDat(string Id, int tinhtrang, string thoigian)
         {
             SqlCommand command = new SqlCommand("UPDATE QLBanAn SET tinhtrang=@tt, thoigian=@datban  WHERE id=@Id", db.GetConnection);
             command.Parameters.Add("@id", SqlDbType.VarChar).Value = Id;
@@ -116,11 +134,11 @@ namespace CK_QLNH
                 return false;
             }
         }
-        public bool updateDatBan(string Id, string thoigian)
+        public bool updateDatBan(string Id, DateTime thoigian)
         {
             SqlCommand command = new SqlCommand("UPDATE QLBanAn SET thoigian=@thoigian WHERE id=@Id", db.GetConnection);
             command.Parameters.Add("@id", SqlDbType.VarChar).Value = Id;
-            command.Parameters.Add("@thoigian", SqlDbType.VarChar).Value = thoigian;
+            command.Parameters.Add("@thoigian", SqlDbType.DateTime).Value = thoigian;
 
             db.openConnection();
             if ((command.ExecuteNonQuery() == 1))

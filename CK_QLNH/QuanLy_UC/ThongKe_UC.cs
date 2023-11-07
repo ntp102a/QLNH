@@ -30,26 +30,16 @@ namespace CK_QLNH
                 int dd = Convert.ToInt32(DateTime.Now.Month.ToString());
                 int kk = Convert.ToInt32(DateTime.Now.Day.ToString());
 
-                if (radioButtonDTMon.Checked == true)
-                {
+                
                     SqlCommand command = new SqlCommand(" SELECT idban as N'Mã Bàn Ăn', tenmonhd as N'Tên Món', soluong as N'Số Lượng Món', giathanh as N'Giá Tổng', thoigian as N'Thời Gian' FROM DoanhThu WHERE(DATEPART(yy, thoigian) = '" + yy + "' AND    DATEPART(mm, thoigian) = '" + dd + "' AND    DATEPART(dd, thoigian) = '" + kk + "')", mydb.GetConnection);
                     SqlDataAdapter adapter = new SqlDataAdapter(command);
                     DataTable table = new DataTable();
                     adapter.Fill(table);
                     dataGridViewDTMon.DataSource = table;
                     dataGridViewDTMon.AllowUserToAddRows = false;
-                }
+                
 
-                if (radioButtonDTBan.Checked == true)
-                {
-                    SqlCommand commandban = new SqlCommand(" SELECT idban as N'Mã Bàn Ăn', sotien as N'Số Tiền', date as N'Thời Gian' FROM DoanhThuBan WHERE(DATEPART(yy, date) = '" + yy + "' AND    DATEPART(mm, date) = '" + dd + "' AND    DATEPART(dd, date) = '" + kk + "')", mydb.GetConnection);
-                    SqlDataAdapter adapterban = new SqlDataAdapter(commandban);
-                    DataTable tableban = new DataTable();
-                    adapterban.Fill(tableban);
-                    dataGridViewDTMon.DataSource = tableban;
-                    dataGridViewDTMon.AllowUserToAddRows = false;
-                }
-
+               
                 SqlCommand command1 = new SqlCommand("SELECT sum(sotien) as N'SL'  FROM DoanhThuBan WHERE(DATEPART(yy, date) = '" + yy + "' AND    DATEPART(mm, date) = '" + dd + "' AND    DATEPART(dd, date) = '" + kk + "')", mydb.GetConnection);
                 SqlDataAdapter adapter1 = new SqlDataAdapter(command1);
                 DataTable table1 = new DataTable();
@@ -77,25 +67,16 @@ namespace CK_QLNH
                 int yy = Convert.ToInt32(DateTime.Now.Year.ToString());
                 int month = Convert.ToInt32(comboBoxMonth.Text);
 
-                if (radioButtonDTMon.Checked == true)
-                {
+
                     SqlCommand command = new SqlCommand(" SELECT idban as N'Mã Bàn Ăn', tenmonhd as N'Tên Món', soluong as N'Số Lượng Món', giathanh as N'Giá Tổng', thoigian as N'Thời Gian' FROM DoanhThu WHERE(DATEPART(yy, thoigian) = '" + yy + "' AND    DATEPART(mm, thoigian) = '" + month + "' )", mydb.GetConnection);
                     SqlDataAdapter adapter = new SqlDataAdapter(command);
                     DataTable table = new DataTable();
                     adapter.Fill(table);
                     dataGridViewDTMon.DataSource = table;
                     dataGridViewDTMon.AllowUserToAddRows = false;
-                }
+                
 
-                if (radioButtonDTBan.Checked == true)
-                {
-                    SqlCommand commandban = new SqlCommand(" SELECT idban as N'Mã Bàn Ăn', sotien as N'Số Tiền', date as N'Thời Gian' FROM DoanhThuBan WHERE(DATEPART(yy, date) = '" + yy + "' AND    DATEPART(mm, date) = '" + month + "' )", mydb.GetConnection);
-                    SqlDataAdapter adapterban = new SqlDataAdapter(commandban);
-                    DataTable tableban = new DataTable();
-                    adapterban.Fill(tableban);
-                    dataGridViewDTMon.DataSource = tableban;
-                    dataGridViewDTMon.AllowUserToAddRows = false;
-                }
+                
                 SqlCommand command1 = new SqlCommand("SELECT sum(sotien) as N'SL'  FROM DoanhThuBan  WHERE(DATEPART(yy, date) = '" + yy + "' AND    DATEPART(mm, date) = '" + month + "' )", mydb.GetConnection);
                 SqlDataAdapter adapter1 = new SqlDataAdapter(command1);
                 DataTable table1 = new DataTable();
@@ -123,25 +104,16 @@ namespace CK_QLNH
 
                 int year = Convert.ToInt32(numericUpDownYear.Value);
 
-                if (radioButtonDTMon.Checked == true)
-                {
+                
                     SqlCommand command = new SqlCommand(" SELECT idban as N'Mã Bàn Ăn', tenmonhd as N'Tên Món', soluong as N'Số Lượng Món', giathanh as N'Giá Tổng', thoigian as N'Thời Gian' FROM DoanhThu WHERE(DATEPART(yy, thoigian) = '" + year + "')", mydb.GetConnection);
                     SqlDataAdapter adapter = new SqlDataAdapter(command);
                     DataTable table = new DataTable();
                     adapter.Fill(table);
                     dataGridViewDTMon.DataSource = table;
                     dataGridViewDTMon.AllowUserToAddRows = false;
-                }
+                
 
-                if (radioButtonDTBan.Checked == true)
-                {
-                    SqlCommand commandban = new SqlCommand(" SELECT idban as N'Mã Bàn Ăn', sotien as N'Số Tiền', date as N'Thời Gian' FROM DoanhThuBan WHERE(DATEPART(yy, date) = '" + year + "')", mydb.GetConnection);
-                    SqlDataAdapter adapterban = new SqlDataAdapter(commandban);
-                    DataTable tableban = new DataTable();
-                    adapterban.Fill(tableban);
-                    dataGridViewDTMon.DataSource = tableban;
-                    dataGridViewDTMon.AllowUserToAddRows = false;
-                }
+                
                 SqlCommand command1 = new SqlCommand("SELECT sum(sotien) as N'SL'  FROM DoanhThuBan WHERE(DATEPART(yy, date) = '" + year + "')", mydb.GetConnection);
                 SqlDataAdapter adapter1 = new SqlDataAdapter(command1);
                 DataTable table1 = new DataTable();

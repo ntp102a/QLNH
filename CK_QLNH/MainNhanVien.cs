@@ -47,7 +47,7 @@ namespace CK_QLNH
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             DataTable table = new DataTable();
             adapter.Fill(table);
-            labelIDNV.Text = "Xin Chào Nhân Viên: " + table.Rows[0][2].ToString().Trim() + " " + table.Rows[0][1].ToString().Trim();
+            //labelIDNV.Text = "Xin Chào Nhân Viên: " + table.Rows[0][2].ToString().Trim() + " " + table.Rows[0][1].ToString().Trim();
             labelDate.Text = DateTime.Now.ToLongDateString();
         }
 

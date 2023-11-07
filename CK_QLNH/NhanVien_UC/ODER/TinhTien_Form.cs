@@ -42,7 +42,7 @@ namespace CK_QLNH
             adapterban.Fill(tableban);
 
 
-            ban.updateBanAnTrong(name, 1, "Chưa Đặt");
+            ban.updateBanAnTrong(name, 1);
             ban.insertDoanhThuBan(name, Convert.ToInt32(tableban.Rows[0]["giaban"].ToString()), Convert.ToDateTime(DateTime.Now.ToString("hh:mm:ss")));
             hoadon.deleteHoaDon(name);
             MessageBox.Show("Đã Thanh Toán", "Thanh Toán", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -153,9 +153,9 @@ namespace CK_QLNH
             }
             try{
                 
-                labelTongTien.Text = "Tổng Tiền Thanh Toán Là: " + (Convert.ToInt32(tableban.Rows[0]["giaban"].ToString()) + tien);
-                Tien = (Convert.ToInt32(tableban.Rows[0]["giaban"].ToString()) + tien);
-                TienB = (Convert.ToInt32(tableban.Rows[0]["giaban"].ToString()));
+                labelTongTien.Text = "Tổng Tiền Thanh Toán Là: " + tien;
+                Tien =  tien;
+
             } catch { }
         }
     }

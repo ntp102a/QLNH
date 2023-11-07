@@ -1,13 +1,16 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Word;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DataTable = System.Data.DataTable;
 
 namespace CK_QLNH
 {
@@ -23,6 +26,10 @@ namespace CK_QLNH
         DataBase db = new DataBase();
         MONAN monan = new MONAN();
         Ban_Form ban = new Ban_Form();
+
+        public static DateTime thoigianorder;
+        public static DateTime thoigiandatban;
+
         public void fillGrid(SqlCommand command)
         {
 
@@ -46,8 +53,8 @@ namespace CK_QLNH
 
         private void ButtonLuuHD_Click(object sender, EventArgs e)
         {
-            //try
-            //{
+            try
+            {
 
                 string tenmon = comboBoxTenMon.Text.Trim();
 
@@ -73,13 +80,18 @@ namespace CK_QLNH
                     string tenmonhd = comboBoxTenMon.Text.Trim();
                     int soluong = Convert.ToInt32(textBoxSL.Text);
                     float giathanh = Convert.ToInt32(textBoxGia.Text);
-                    DateTime thoigian = DateTimePickerBirthTG.Value;
+                    thoigianorder = DateTimePickerBirthTG.Value;
 
-                    if (hoadon.insertHoaDon(ban.IdBanKey.Trim(), tenmonhd, soluong, giathanh, thoigian))
+                    if (hoadon.insertHoaDon(ban.IdBanKey.Trim(), tenmonhd, soluong, giathanh, thoigianorder))
                     {
-                        doanhthu.insertDoanhThu(ban.IdBanKey.Trim(), tenmonhd, soluong, giathanh, thoigian);
+                        doanhthu.insertDoanhThu(ban.IdBanKey.Trim(), tenmonhd, soluong, giathanh, thoigianorder);
                         monan.updateSLMonAn(tenmon, slcheck);
-                        banan.updateBanAnTrong(ban.IdBanKey.Trim(), 0, "Chưa Đặt");
+                        banan.updateBanAnTrong(ban.IdBanKey.Trim(), 0);
+                        if (thoigianorder > thoigiandatban)
+                        {
+                            banan.updateBanAnDaDat(ban.IdBanKey.Trim(), 0, "Chưa Đặt");
+                        }
+                        
                         MessageBox.Show("Oder Being Inserted", "Add Oder", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
@@ -89,34 +101,27 @@ namespace CK_QLNH
 
                     fillGrid(new SqlCommand("SELECT idban as N'Mã Bàn Ăn', tenmonhd as N'Tên Món', soluong as N'Số Lượng Món', giathanh as N'Giá Tổng', thoigian as N'Thời Gian' FROM HoaDon WHERE idban = '" + ban.IdBanKey.Trim() + "'"));
                 }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Add Oder", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Add Oder", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             comboBoxTenMon.Text = "";
             textBoxGia.Text = "";
             textBoxSL.Text = "";
 
 
             string name = textBoxIdBan.Text;
-            SqlCommand command1 = new SqlCommand(" SELECT idban as N'Mã Bàn Ăn', tenmonhd as N'Tên Món', soluong as N'Số Lượng Món', giathanh as N'Giá Tổng', thoigian as N'Thời Gian' FROM HoaDon WHERE idban = '" + name + "'", db.GetConnection);
+            SqlCommand command1 = new SqlCommand(" SELECT idban as N'Mã Bàn Ăn', tenmonhd as N'Tên Món', soluong as N'Số Lượng Món', giathanh as N'Giá Thành', thoigian as N'Thời Gian' FROM HoaDon WHERE idban = '" + name + "'", db.GetConnection);
             SqlDataAdapter adapter1 = new SqlDataAdapter(command1);
             DataTable table1 = new DataTable();
             adapter1.Fill(table1);
 
-            int tien = 0;
             SqlCommand commandban = new SqlCommand(" SELECT Id, giaban FROM QLBanAn WHERE Id = '" + name + "'", db.GetConnection);
             SqlDataAdapter adapterban = new SqlDataAdapter(commandban);
             DataTable tableban = new DataTable();
             adapterban.Fill(tableban);
 
-            for (int i = 0; i < table1.Rows.Count; i++)
-            {
-                tien = tien + Convert.ToInt32(table1.Rows[i]["Giá Tổng"].ToString());
-            }
-
-            labelTongTien.Text = "Tổng Tiền Thanh Toán (Đã Tính Tiền Bàn) Là: " + (Convert.ToInt32(tableban.Rows[0]["giaban"].ToString()) + tien);
         }
 
         private void buttonEdit_Click(object sender, EventArgs e)
@@ -143,7 +148,7 @@ namespace CK_QLNH
                 MessageBox.Show(ex.Message, "Edit Mon An", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             fillGrid(new SqlCommand("SELECT idban AS N'Mã Bàn', tenmonhd AS N'Tên Món', soluong AS N'Số Lượng', giathanh AS N'Giá Thành', thoigian AS N'Thời Gian' FROM HoaDon WHERE idban = '" + ban.IdBanKey.Trim() + "'"));
-
+     
             comboBoxTenMon.Text = "";
             textBoxSL.Text = "";
             textBoxGia.Text = "";
@@ -182,7 +187,7 @@ namespace CK_QLNH
             {
                 MessageBox.Show("Please Enter A Valid ID", "Remove Mon An", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            fillGrid(new SqlCommand("SELECT idban AS N'Mã Bàn', tenmonhd AS N'Tên Món', soluong AS N'Số Lượng', giathanh AS N'Giá Thành', thoigian AS N'Thời Gian' FROM HoaDon WHERE idban = '" + ban.IdBanKey.Trim() + "'"));
+            fillGrid(new SqlCommand("SELECT idban AS N'Mã Bàn', tenmonhd AS N'Tên Món', soluong AS N'Số Lượng', giathanh AS N'Giá Tổng', thoigian AS N'Thời Gian' FROM HoaDon WHERE idban = '" + ban.IdBanKey.Trim() + "'"));
 
             comboBoxTenMon.Text = "";
             textBoxSL.Text = "";
@@ -193,15 +198,12 @@ namespace CK_QLNH
 
         private void buttonHuy_Click(object sender, EventArgs e)
         {
-
-
-
             string idban = textBoxIdBan.Text;
             if (MessageBox.Show("Are You Sure You Want To Remove This Mon An", "Delete Mon An", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 hoadon.deleteHoaDon(idban);
                 doanhthu.deleteHoaDon(idban);
-                banan.updateBanAnTrong(ban.IdBanKey.Trim(), 1, "Chưa Đặt");
+                banan.updateBanAnTrong(ban.IdBanKey.Trim(), 1);
                 for (int i = 0; i < dataGridViewOder.Rows.Count; i++)
                 {
                     int k = Convert.ToInt32(dataGridViewOder.Rows[i].Cells[2].Value);
@@ -215,8 +217,9 @@ namespace CK_QLNH
                 }
                 MessageBox.Show("Mon An Delete", "Remove Mon An", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            labelTongTien.Text = "";
-            fillGrid(new SqlCommand("SELECT idban AS N'Mã Bàn', tenmonhd AS N'Tên Món', soluong AS N'Số Lượng', giathanh AS N'Giá Thành', thoigian AS N'Thời Gian' FROM HoaDon WHERE idban = '" + ban.IdBanKey.Trim() + "'"));
+            fillGrid(new SqlCommand("SELECT idban AS N'Mã Bàn', tenmonhd AS N'Tên Món', soluong AS N'Số Lượng', giathanh AS N'Giá Tổng', thoigian AS N'Thời Gian' FROM HoaDon WHERE idban = '" + ban.IdBanKey.Trim() + "'"));
+
+
         }
 
         private void Oder_Form_Load(object sender, EventArgs e)
@@ -231,8 +234,6 @@ namespace CK_QLNH
             comboBoxTenMon.ValueMember = "Id";
 
             fillGrid(new SqlCommand("SELECT idban AS N'Mã Bàn', tenmonhd AS N'Tên Món', soluong AS N'Số Lượng', giathanh AS N'Giá Thành', thoigian AS N'Thời Gian' FROM HoaDon WHERE idban = '" + ban.IdBanKey.Trim() + "'"));
-
-
 
         }
 
@@ -271,9 +272,24 @@ namespace CK_QLNH
 
         private void ButtonDatban_Click(object sender, EventArgs e)
         {
-            banan.updateDatBan(ban.IdBanKey.Trim(), dateTimePicker1.Value.ToString());
-            MessageBox.Show("Đặt Bàn Thành Công");
+            thoigiandatban = dateTimePicker1.Value;
+            if (thoigiandatban > DateTime.Now)
+            {
+                banan.updateDatBan(ban.IdBanKey.Trim(), thoigiandatban);
+                MessageBox.Show("Đặt Bàn Thành Công");
+            }
+            else
+            {
+                MessageBox.Show("Thời Gian Đặt Bàn Lỗi", "Thời Gian Đặt Bàn", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
+            
         }
-        
+
+        private void buttonThem_Click(object sender, EventArgs e)
+        {
+            TinhTien_Form tinhtien = new TinhTien_Form();
+            tinhtien.Show(this);
+        }
     }
 }

@@ -136,9 +136,9 @@ namespace CK_QLNH
             try
             {
                 string search = textBoxSearch.Text;
-                if (search.Trim() == "Nhập Tên_SL_Giá")
+                if (search.Trim() == "Nhập Tên_SL")
                 {
-                    MessageBox.Show("Nhập Tên_SL_Giá", "Search", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Nhập Tên_SL", "Search", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
@@ -179,7 +179,7 @@ namespace CK_QLNH
             TextBoxSL.Enter += new EventHandler(TextBoxSL_Enter);
 
             textBoxSearch.ForeColor = Color.Black;
-            textBoxSearch.Text = "Nhập Tên_SL_Giá";
+            textBoxSearch.Text = "Nhập Tên_SL";
             textBoxSearch.Leave += new EventHandler(textBoxSearch_Leave);
             textBoxSearch.Enter += new EventHandler(textBoxSearch_Enter);
 
@@ -260,14 +260,14 @@ namespace CK_QLNH
         {
             if (textBoxSearch.Text == "")
             {
-                textBoxSearch.Text = "Nhập Tên_SL_Giá";
+                textBoxSearch.Text = "Nhập Tên_SL";
                 textBoxSearch.ForeColor = Color.Black;
             }
         }
 
         private void textBoxSearch_Enter(object sender, EventArgs e)
         {
-            if (textBoxSearch.Text == "Nhập Tên_SL_Giá")
+            if (textBoxSearch.Text == "Nhập Tên_SL")
             {
                 textBoxSearch.Text = "";
                 textBoxSearch.ForeColor = Color.Black;
@@ -298,6 +298,11 @@ namespace CK_QLNH
                 textBoxTinhTrang.Text = "";
                 textBoxTinhTrang.ForeColor = Color.Black;
             }
+        }
+
+        private void btnReload_Click(object sender, EventArgs e)
+        {
+            fillGrid(new SqlCommand("SELECT Id as N'Mã Bàn Ăn', tenban as N'Tên Bàn', soluong as N'Số Lượng Khách', tinhtrang as N'Tình Trạng' FROM QLBanAn"));
         }
     }
 }
