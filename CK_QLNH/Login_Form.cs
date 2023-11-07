@@ -31,42 +31,8 @@ namespace CK_QLNH
                 command.Parameters.Add("@Pass", SqlDbType.VarChar).Value = textBoxPass.Text;
                 adapter.SelectCommand = command;
                 adapter.Fill(table);
-                string h = DateTime.Now.Hour.ToString();
-                int HourInt = Convert.ToInt32(h);
-                if (HourInt >= 7 && HourInt <= 11)
-                {
-                    if (textBoxUser.Text == "admin1")
-                    {
-                        MessageBox.Show("Khong phai ca lam cua quan ly 1.");
-                    }
-                    else if ((table.Rows.Count > 0))
-                    {
-                        MainQuanLy form1 = new MainQuanLy();
-                        form1.Show(this);
-                        //this.DialogResult = DialogResult.OK;
-                    }
-                    else
-                    {
-                        MessageBox.Show("No", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                else
-                {
-                    if (textBoxUser.Text == "admin2")
-                    {
-                        MessageBox.Show("Khong phai ca lam cua quan ly 2.");
-                    }
-                    else if ((table.Rows.Count > 0))
-                    {
-                        MainQuanLy form1 = new MainQuanLy();
-                        form1.Show(this);
-                        //this.DialogResult = DialogResult.OK;
-                    }
-                    else
-                    {
-                        MessageBox.Show("No", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
+                MainQuanLy form1 = new MainQuanLy();
+                form1.Show();
             }
             if (radioButtonNV.Checked == true)
             {
@@ -78,9 +44,9 @@ namespace CK_QLNH
                 if ((table.Rows.Count > 0))
                 {
                     ID = Convert.ToInt32(table.Rows[0]["Id"].ToString());
-                    MainNhanVien form1 = new MainNhanVien();
-                    form1.labelIDNV.Text = ("ID Nhân Viên Truy Cập: " + ID);
-                    form1.Show(this);
+                    MainNhanVien form2 = new MainNhanVien();
+                    form2.labelIDNV.Text = ("ID Nhân Viên Truy Cập: " + ID);                    
+                    form2.Show(this);
                     //this.DialogResult = DialogResult.OK;
                 }
                 else
