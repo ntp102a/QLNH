@@ -10,7 +10,7 @@ namespace CK_QLNH
 {
     class DataBase
     {
-        SqlConnection con = new SqlConnection(@"Data Source=.;Initial Catalog=QuanLyNhaHang;Integrated Security=True");
+        SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-7R66M1N\LEDIEPTRI;Initial Catalog=QuanLyNhaHang1;Integrated Security=True");
         public SqlConnection GetConnection
         {
             get

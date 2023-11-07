@@ -26,60 +26,66 @@ namespace CK_QLNH
         public static int dem;
         private void buttonCreate_Click(object sender, EventArgs e)
         {
-            string username = textBoxUserName.Text;
-            string password = textBoxPassword.Text;
-            string lname = textBoxLName.Text;
-            string fname = textBoxFName.Text;
-            DateTime bdate = DateTimePickerBirth.Value;
-            string gen = "";
-            string phone = textBoxPhone.Text;
-            string addr = textBoxAddr.Text;
-            string cmnd = textBoxCMND.Text;
-            string gmail = textBoxGmail.Text;
-            MemoryStream picture = new MemoryStream();
+            try {
+                string username = textBoxUserName.Text;
+                string password = textBoxPassword.Text;
+                string lname = textBoxLName.Text;
+                string fname = textBoxFName.Text;
+                DateTime bdate = DateTimePickerBirth.Value;
+                string gen = "";
+                string phone = textBoxPhone.Text;
+                string addr = textBoxAddr.Text;
+                string cmnd = textBoxCMND.Text;
+                string gmail = textBoxGmail.Text;
+                MemoryStream picture = new MemoryStream();
 
-            if (radioButtonMale.Checked)
-            {
-                gen = "Male";
+                if (radioButtonMale.Checked)
+                {
+                    gen = "Male";
+                }
+                else if (radioButtonFemale.Checked)
+                {
+                    gen = "Female";
+                }
+
+                SqlCommand commandCheckUsername = new SqlCommand("SELECT Id, TenNV, HoNV FROM NhanVien WHERE UserName = @username");
+                commandCheckUsername.Parameters.Add("@username", SqlDbType.VarChar).Value = textBoxUserName.Text;
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable table = new DataTable();
+                commandCheckUsername.Connection = db.GetConnection;
+                adapter.SelectCommand = commandCheckUsername;
+
+
+                adapter.Fill(table);
+                if (table.Rows.Count > 0)
+                {
+                    MessageBox.Show("Username đã tồn tại", "Username Exist", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                int id = count() + 1;
+
+                if (tk.insertAccount(id, username, password, fname, lname))
+                {
+                    count();
+                    idl.insertChiaca(dem, "", "", "", "", "", "", "");
+                    idl.insertTime(dem);
+                    idl.insertLuong(dem);
+                    PictureBoxNV.Image.Save(picture, PictureBoxNV.Image.RawFormat);
+                    nv.insertNhanVien(dem, fname, lname, bdate, gen, phone, addr, cmnd, gmail, picture);
+
+                    MessageBox.Show("New Account Add", "Add Account", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Error", "Add Account", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
             }
-            else if(radioButtonFemale.Checked)
+            catch 
             {
-                gen = "Female";
-            }
-            
-            SqlCommand commandCheckUsername = new SqlCommand("SELECT Id, TenNV, HoNV FROM NhanVien WHERE UserName = @username");
-            commandCheckUsername.Parameters.Add("@username", SqlDbType.VarChar).Value = textBoxUserName.Text;
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            DataTable table = new DataTable();
-            commandCheckUsername.Connection = db.GetConnection;
-            adapter.SelectCommand = commandCheckUsername;
-
-
-            adapter.Fill(table);
-            if (table.Rows.Count > 0)
-            {
-                MessageBox.Show("Username đã tồn tại", "Username Exist", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            int id = count() + 1;
-
-            if (tk.insertAccount(id, username, password, fname, lname))
-            {
-                count();
-                idl.insertChiaca(dem, "", "", "", "", "", "", "");
-                idl.insertTime(dem);
-                idl.insertLuong(dem);
-                PictureBoxNV.Image.Save(picture, PictureBoxNV.Image.RawFormat);
-                nv.insertNhanVien(dem, fname, lname, bdate, gen, phone, addr, cmnd, gmail, picture);
-
-                MessageBox.Show("New Account Add", "Add Account", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                MessageBox.Show("Error", "Add Account", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            }
+                MessageBox.Show("Error", "Add Employee", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }            
 
         }
 

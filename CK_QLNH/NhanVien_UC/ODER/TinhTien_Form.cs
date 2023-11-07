@@ -153,9 +153,9 @@ namespace CK_QLNH
             }
             try{
                 
-                labelTongTien.Text = "Tổng Tiền Thanh Toán Là: " + (Convert.ToInt32(tableban.Rows[0]["giaban"].ToString()) + tien);
-                Tien = (Convert.ToInt32(tableban.Rows[0]["giaban"].ToString()) + tien);
-                TienB = (Convert.ToInt32(tableban.Rows[0]["giaban"].ToString()));
+                labelTongTien.Text = "Tổng Tiền Thanh Toán Là: " + tien;
+                Tien =  tien;
+
             } catch { }
         }
     }

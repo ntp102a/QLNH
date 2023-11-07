@@ -116,11 +116,30 @@ namespace CK_QLNH
                 return false;
             }
         }
-        public bool updateDatBan(string Id, string thoigian)
+        public bool updateBanAnDaDat(string Id, int tinhtrang, DateTime thoigian)
+        {
+            SqlCommand command = new SqlCommand("UPDATE QLBanAn SET tinhtrang=@tt, thoigian=@datban  WHERE id=@Id", db.GetConnection);
+            command.Parameters.Add("@id", SqlDbType.VarChar).Value = Id;
+            command.Parameters.Add("@tt", SqlDbType.Int).Value = tinhtrang;
+            command.Parameters.Add("@datban", SqlDbType.DateTime).Value = thoigian;
+
+            db.openConnection();
+            if ((command.ExecuteNonQuery() == 1))
+            {
+                db.closeConnection();
+                return true;
+            }
+            else
+            {
+                db.closeConnection();
+                return false;
+            }
+        }
+        public bool updateDatBan(string Id, DateTime thoigian)
         {
             SqlCommand command = new SqlCommand("UPDATE QLBanAn SET thoigian=@thoigian WHERE id=@Id", db.GetConnection);
             command.Parameters.Add("@id", SqlDbType.VarChar).Value = Id;
-            command.Parameters.Add("@thoigian", SqlDbType.VarChar).Value = thoigian;
+            command.Parameters.Add("@thoigian", SqlDbType.DateTime).Value = thoigian;
 
             db.openConnection();
             if ((command.ExecuteNonQuery() == 1))

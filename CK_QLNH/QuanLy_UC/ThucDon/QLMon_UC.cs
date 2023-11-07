@@ -285,8 +285,8 @@ namespace CK_QLNH
         {
             textBoxIdMon.Text = dataGridViewQlMon.CurrentRow.Cells[0].Value.ToString();
             TextBoxTenMon.Text = dataGridViewQlMon.CurrentRow.Cells[1].Value.ToString();
-            TextBoxSL.Text = dataGridViewQlMon.CurrentRow.Cells[4].Value.ToString();
             textBoxGiaThanh.Text = dataGridViewQlMon.CurrentRow.Cells[2].Value.ToString();
+            TextBoxSL.Text = dataGridViewQlMon.CurrentRow.Cells[3].Value.ToString();
         }
 
         private void btnReload_Click(object sender, EventArgs e)

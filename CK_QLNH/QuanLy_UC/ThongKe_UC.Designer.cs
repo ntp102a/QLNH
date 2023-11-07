@@ -45,8 +45,6 @@ namespace CK_QLNH
             this.buttonPrint = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.radioButtonDTBan = new System.Windows.Forms.RadioButton();
-            this.radioButtonDTMon = new System.Windows.Forms.RadioButton();
             this.BieuDoCot = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.labelDoanhThu = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDTMon)).BeginInit();
@@ -77,7 +75,7 @@ namespace CK_QLNH
             this.buttonDoanhThu.ForeColor = System.Drawing.Color.White;
             this.buttonDoanhThu.Image = ((System.Drawing.Image)(resources.GetObject("buttonDoanhThu.Image")));
             this.buttonDoanhThu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonDoanhThu.Location = new System.Drawing.Point(292, 22);
+            this.buttonDoanhThu.Location = new System.Drawing.Point(15, 22);
             this.buttonDoanhThu.Margin = new System.Windows.Forms.Padding(4);
             this.buttonDoanhThu.Name = "buttonDoanhThu";
             this.buttonDoanhThu.Size = new System.Drawing.Size(184, 48);
@@ -95,7 +93,7 @@ namespace CK_QLNH
             this.buttonMonTop.ForeColor = System.Drawing.Color.White;
             this.buttonMonTop.Image = ((System.Drawing.Image)(resources.GetObject("buttonMonTop.Image")));
             this.buttonMonTop.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonMonTop.Location = new System.Drawing.Point(547, 22);
+            this.buttonMonTop.Location = new System.Drawing.Point(293, 22);
             this.buttonMonTop.Margin = new System.Windows.Forms.Padding(4);
             this.buttonMonTop.Name = "buttonMonTop";
             this.buttonMonTop.Size = new System.Drawing.Size(161, 48);
@@ -202,7 +200,7 @@ namespace CK_QLNH
             this.buttonPrint.ForeColor = System.Drawing.Color.White;
             this.buttonPrint.Image = global::CK_QLNH.Properties.Resources.print_icon;
             this.buttonPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonPrint.Location = new System.Drawing.Point(777, 43);
+            this.buttonPrint.Location = new System.Drawing.Point(559, 22);
             this.buttonPrint.Margin = new System.Windows.Forms.Padding(4);
             this.buttonPrint.Name = "buttonPrint";
             this.buttonPrint.Size = new System.Drawing.Size(153, 48);
@@ -215,49 +213,23 @@ namespace CK_QLNH
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.groupBox2);
-            this.groupBox1.Controls.Add(this.buttonPrint);
             this.groupBox1.Controls.Add(this.ThongKe);
             this.groupBox1.Location = new System.Drawing.Point(91, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1014, 240);
+            this.groupBox1.Size = new System.Drawing.Size(780, 240);
             this.groupBox1.TabIndex = 157;
             this.groupBox1.TabStop = false;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.radioButtonDTBan);
             this.groupBox2.Controls.Add(this.buttonMonTop);
+            this.groupBox2.Controls.Add(this.buttonPrint);
             this.groupBox2.Controls.Add(this.buttonDoanhThu);
-            this.groupBox2.Controls.Add(this.radioButtonDTMon);
             this.groupBox2.Location = new System.Drawing.Point(6, 21);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(735, 85);
             this.groupBox2.TabIndex = 78;
             this.groupBox2.TabStop = false;
-            // 
-            // radioButtonDTBan
-            // 
-            this.radioButtonDTBan.AutoSize = true;
-            this.radioButtonDTBan.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonDTBan.Location = new System.Drawing.Point(155, 35);
-            this.radioButtonDTBan.Name = "radioButtonDTBan";
-            this.radioButtonDTBan.Size = new System.Drawing.Size(88, 27);
-            this.radioButtonDTBan.TabIndex = 80;
-            this.radioButtonDTBan.TabStop = true;
-            this.radioButtonDTBan.Text = "Bàn Ăn";
-            this.radioButtonDTBan.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonDTMon
-            // 
-            this.radioButtonDTMon.AutoSize = true;
-            this.radioButtonDTMon.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonDTMon.Location = new System.Drawing.Point(15, 35);
-            this.radioButtonDTMon.Name = "radioButtonDTMon";
-            this.radioButtonDTMon.Size = new System.Drawing.Size(101, 27);
-            this.radioButtonDTMon.TabIndex = 79;
-            this.radioButtonDTMon.TabStop = true;
-            this.radioButtonDTMon.Text = "Hóa Đơn";
-            this.radioButtonDTMon.UseVisualStyleBackColor = true;
             // 
             // BieuDoCot
             // 
@@ -302,7 +274,6 @@ namespace CK_QLNH
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownYear)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BieuDoCot)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -322,8 +293,6 @@ namespace CK_QLNH
         private System.Windows.Forms.NumericUpDown numericUpDownYear;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.RadioButton radioButtonDTBan;
-        private System.Windows.Forms.RadioButton radioButtonDTMon;
         private System.Windows.Forms.DataVisualization.Charting.Chart BieuDoCot;
         private System.Windows.Forms.Label labelDoanhThu;
     }
