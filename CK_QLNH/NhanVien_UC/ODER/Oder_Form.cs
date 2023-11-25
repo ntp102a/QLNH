@@ -87,11 +87,11 @@ namespace CK_QLNH
                         doanhthu.insertDoanhThu(ban.IdBanKey.Trim(), tenmonhd, soluong, giathanh, thoigianorder);
                         monan.updateSLMonAn(tenmon, slcheck);
                         banan.updateBanAnTrong(ban.IdBanKey.Trim(), 0);
-                        if (thoigianorder > thoigiandatban)
+                        if (thoigiandatban < thoigianorder)
                         {
                             banan.updateBanAnDaDat(ban.IdBanKey.Trim(), 0, "Chưa Đặt");
+
                         }
-                        
                         MessageBox.Show("Oder Being Inserted", "Add Oder", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
@@ -272,6 +272,7 @@ namespace CK_QLNH
 
         private void ButtonDatban_Click(object sender, EventArgs e)
         {
+            
             thoigiandatban = dateTimePicker1.Value;
             if (thoigiandatban > DateTime.Now)
             {
@@ -281,15 +282,10 @@ namespace CK_QLNH
             else
             {
                 MessageBox.Show("Thời Gian Đặt Bàn Lỗi", "Thời Gian Đặt Bàn", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            
-            
-        }
 
-        private void buttonThem_Click(object sender, EventArgs e)
-        {
-            TinhTien_Form tinhtien = new TinhTien_Form();
-            tinhtien.Show(this);
+            }
         }
+                
+        
     }
 }

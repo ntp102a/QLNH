@@ -141,7 +141,7 @@ namespace CK_QLNH
 
         private void buttonMonTop_Click(object sender, EventArgs e)
         {
-
+            BieuDoCot.Series["MonAn"].Points.Clear();
             if (radioButton1Ngay.Checked == true)
             {
                 int yy = Convert.ToInt32(DateTime.Now.Year.ToString());
@@ -241,6 +241,7 @@ namespace CK_QLNH
                 }
 
             }
+           
 
         }
 

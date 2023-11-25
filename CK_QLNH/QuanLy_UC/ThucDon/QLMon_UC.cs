@@ -48,18 +48,18 @@ namespace CK_QLNH
             try
             {
                 string Id = textBoxIdMon.Text;
-                string tenban = TextBoxTenMon.Text;
-                float giaban = Convert.ToInt32(textBoxGiaThanh.Text);
+                string tenmon = TextBoxTenMon.Text;
+                float giamon = Convert.ToInt32(textBoxGiaThanh.Text);
                 int soluong = Convert.ToInt32(TextBoxSL.Text);
 
 
-                if (tenban.Trim() == "")
+                if (tenmon.Trim() == "")
                 {
                     MessageBox.Show("Add a Ten Mon An", "Add Mon An", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else if (monan.checkTenMonAn(Id))
                 {
-                    if (monan.insertMonAn(Id, tenban, giaban, soluong))
+                    if (monan.insertMonAn(Id, tenmon, giamon, soluong))
                     {
                         MessageBox.Show("New Mon An Inserted", "Add Mon An", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }

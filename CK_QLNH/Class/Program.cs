@@ -15,7 +15,7 @@ namespace CK_QLNH
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainNhanVien());
+            Application.Run(new Login_Form());
             
         }
     }
